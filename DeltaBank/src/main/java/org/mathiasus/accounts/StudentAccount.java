@@ -3,7 +3,7 @@ package org.mathiasus.accounts;
 import org.mathiasus.models.facilities.education.School;
 import org.mathiasus.persons.customers.Customer;
 
-public class StudentAccount extends  BaseBankAccount {
+public class StudentAccount extends BankAccount {
 
     private School school;
 

@@ -1,7 +1,7 @@
 package org.mathiasus;
 
+import org.mathiasus.accounts.RegularAccount;
 import org.mathiasus.accounts.BankAccount;
-import org.mathiasus.accounts.BaseBankAccount;
 import org.mathiasus.accounts.SaveAccount;
 import org.mathiasus.accounts.StudentAccount;
 import org.mathiasus.models.facilities.education.School;
@@ -16,9 +16,9 @@ public class Main {
     public static void main(String[] args) {
         Customer customer = new Customer("c-222", "John", "", "Middleman");
         School school = new School("6332340273", "Gymnazium jana capka", "Praha 8", "janacapka@example.com", FaciltityType.School);
-        BaseBankAccount account0 = new BankAccount("c-2223", "32943233", customer, 123);
-        BaseBankAccount account1 = new SaveAccount("c-2223", "32943233", customer, 123, 0.1f);
-        BaseBankAccount account2 = new StudentAccount("c-2223", "32943233", customer, 123, school);
+        BankAccount account0 = new RegularAccount("c-2223", "32943233", customer, 123);
+        BankAccount account1 = new SaveAccount("c-2223", "32943233", customer, 123, 0.1f);
+        BankAccount account2 = new StudentAccount("c-2223", "32943233", customer, 123, school);
         try{
             TestAccount(account0);
             TestAccount(account1);
@@ -29,13 +29,13 @@ public class Main {
     }
 
 
-    public static void TestAccount(BaseBankAccount account) throws OperationNotSupportedException {
+    public static void TestAccount(BankAccount account) throws OperationNotSupportedException {
         account.addBalance(300);
         PrintAccount(account);
         account.removeBalance(480);
         PrintAccount(account);
         switch (account){
-            case  BankAccount BankAccount:
+            case  RegularAccount BankAccount:
                 break;
             case  SaveAccount BankAccount:
                 System.out.println(String.format("Next month increase will be approximately %f", BankAccount.getBalance() * BankAccount.getInterestRate()));
@@ -49,7 +49,7 @@ public class Main {
                 throw new OperationNotSupportedException("Account type not implemented yet!");
         }
     }
-    public static void PrintAccount(BaseBankAccount account){
+    public static void PrintAccount(BankAccount account){
         Customer customer = account.getCustomer();
         System.out.println(customer.getFirstName() + " " + customer.getLastName() + ": " +  account.getBalance());
     }
