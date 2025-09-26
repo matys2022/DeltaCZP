@@ -5,7 +5,7 @@ import org.mathiasus.persons.customers.Customer;
 
 public class StudentAccount extends BankAccount {
 
-    private School school;
+    private final School school;
 
     public StudentAccount(String uuid, String bankAccountNumber, Customer customer, double balance, School school) {
         super(uuid, bankAccountNumber, customer, balance);

@@ -7,12 +7,50 @@ public class BankAccount {
     private final String uuid;
     private final String bankAccountNumber;
     private final Customer customer;
-    private double balance;
-    public BankAccount(String uuid, String bankAccountNumber, Customer customer, double balance) {
+    protected double balance;
+    // If limit is negative, it behaves like no limit exists
+    protected double perPaymentLimit;
+    // If limit is negative, it behaves like no limit exists
+    protected double monthlyLimit;
+    protected double monthlySpentBalance;
+    protected double monthlyDepositedBalance;
+
+    public BankAccount(String uuid, String bankAccountNumber, Customer customer, double balance,  double perPaymentLimit, double monthlyLimit) {
+
         this.uuid = uuid;
         this.bankAccountNumber = bankAccountNumber;
         this.customer = customer;
         this.balance = balance;
+        this.perPaymentLimit = perPaymentLimit;
+        this.monthlyLimit = monthlyLimit;
+    }
+    public BankAccount(String uuid, String bankAccountNumber, Customer customer, double balance) {
+
+        this(uuid, bankAccountNumber, customer, balance, -1.0f, -1.0f);
+    }
+
+    public double getMonthlyLimit() {
+        return monthlyLimit;
+    }
+
+    public double getPerPaymentLimit() {
+        return perPaymentLimit;
+    }
+
+    public double getMonthlySpentBalance() {
+        return monthlySpentBalance;
+    }
+
+    public double getMonthlyDepositedBalance() {
+        return monthlyDepositedBalance;
+    }
+
+    public void setMonthlyDepositedBalance(double monthlyDepositedBalance) {
+        this.monthlyDepositedBalance = monthlyDepositedBalance;
+    }
+
+    public void setMonthlySpentBalance(double balance) {
+        this.monthlySpentBalance = balance;
     }
 
     public Customer getCustomer() {
@@ -31,20 +69,7 @@ public class BankAccount {
         return uuid;
     }
 
-    public void addBalance(double balance) {
-        this.balance += balance;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
-
-    public boolean removeBalance(double balance) {
-        if(this.balance - balance <= 0) {
-            System.out.println("Unable to remove balance, not enough balance on the account.");
-            return false;
-        }else{
-            this.balance -= balance;
-            System.out.println("Balance: " + balance + " removed.");
-            return true;
-        }
-
-    }
-
 }

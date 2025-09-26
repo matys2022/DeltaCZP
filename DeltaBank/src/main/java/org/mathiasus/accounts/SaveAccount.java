@@ -4,7 +4,7 @@ import org.mathiasus.persons.customers.Customer;
 
 public class SaveAccount extends BankAccount {
 
-    private float interestRate;
+    private final float interestRate;
 
     public SaveAccount(String uuid, String bankAccountNumber, Customer customer, double balance, float interestRate) {
         super(uuid, bankAccountNumber, customer, balance);
