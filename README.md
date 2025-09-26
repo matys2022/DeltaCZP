@@ -1,2 +1,2 @@
-# DeltaCZP
-This is a repo used to publish my progress within the CzP subject
+# DeltaCZP - Mathias Samek 3.B
+This is a repo for my progress within the CzP subject
