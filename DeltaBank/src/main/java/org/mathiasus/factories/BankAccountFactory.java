@@ -13,7 +13,6 @@ public class BankAccountFactory {
     private static AccountCreation accountHelper = new AccountCreation();
 
 
-
     public BankAccountFactory() {}
 
     public  BankAccount createRegularAccount(Customer customer, double balance) {

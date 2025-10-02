@@ -64,14 +64,14 @@ public class BalanceInputRevisionService {
     }
 
     private boolean reviseMonthLimit(){
-        // If limit is negative, it behaves like no limit exists
+        // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getMonthlyLimit()>=0)
             return bankAccount.getMonthlyLimit() - inputValue >= 0;
         else return true;
     }
 
     private boolean revisePaymentLimit(){
-        // If limit is negative, it behaves like no limit exists
+        // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getPerPaymentLimit()>=0)
             return bankAccount.getPerPaymentLimit() - inputValue >= 0;
         else  return true;
