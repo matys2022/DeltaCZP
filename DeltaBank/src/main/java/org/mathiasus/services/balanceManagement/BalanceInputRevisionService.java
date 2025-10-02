@@ -15,62 +15,56 @@ public class BalanceInputRevisionService {
 
         this.inputValue = inputValue;
 
-        if(reviseDepositAmount()){
-            if(checkAMLA()){
-                if(reviseMonthlyDepositAmount()){
-                    // Passed
-                    return true;
-                }else{
-                    throw new RuntimeException("Deposit amount exceeded the monthly deposit limit");
-                }
-            }else{
-                throw new RuntimeException("Deposit amount exceeded the per-deposit limit");
-            }
-        }else{
+        if(!checkDepositAmount()){
             throw new RuntimeException("Deposit value must have a positive value");
         }
+        if(!checkAMLA()){
+            throw new RuntimeException("Deposit amount exceeded the per-deposit limit");
+        }
+        if(!checkMonthlyDepositAmount()){
+            throw new RuntimeException("Deposit amount exceeded the monthly deposit limit");
+        }
+
+        // Passed
+        return true;
     }
 
     public boolean ValidateWithdrawal(double inputValue){
 
         this.inputValue = inputValue;
 
-        if(reviseWithdrawalAmount()){
-            if(reviseAvailableBalance()){
-                if(reviseMonthLimit()){
-                    if(revisePaymentLimit()){
-                        // Passed
-                        return true;
-                    } else{
-                        throw new RuntimeException("Processed payment limit reached");
-                    }
-                }else {
-                    throw new RuntimeException("Processed payment reached monthly limit ");
-                }
-            }else  {
-                throw new RuntimeException("Not sufficient balance");
-            }
-        }else{
+        if(!checkWithdrawalAmount()){
             throw new RuntimeException("Withdrawal value must be positive");
         }
+        if(!checkAvailableBalance()){
+            throw new RuntimeException("Not sufficient balance");
+        }
+        if(!checkMonthLimit()){
+            throw new RuntimeException("Processed payment reached monthly limit ");
+        }
+        if(!checkPaymentLimit()){
+            throw new RuntimeException("Processed payment limit reached");
+        }
+        // Passed
+        return true;
     }
 
-    private boolean reviseWithdrawalAmount(){
+    private boolean checkWithdrawalAmount(){
         return inputValue > 0;
     }
 
-    private boolean reviseAvailableBalance(){
+    private boolean checkAvailableBalance(){
         return bankAccount.getBalance() - inputValue >= 0;
     }
 
-    private boolean reviseMonthLimit(){
+    private boolean checkMonthLimit(){
         // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getMonthlyLimit()>=0)
             return bankAccount.getMonthlyLimit() - inputValue >= 0;
         else return true;
     }
 
-    private boolean revisePaymentLimit(){
+    private boolean checkPaymentLimit(){
         // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getPerPaymentLimit()>=0)
             return bankAccount.getPerPaymentLimit() - inputValue >= 0;
@@ -84,7 +78,7 @@ public class BalanceInputRevisionService {
 
 
 
-    private boolean reviseMonthlyDepositAmount(){
+    private boolean checkMonthlyDepositAmount(){
         return checkAMLA(inputValue + bankAccount.getMonthlyDepositedBalance());
     }
 
@@ -96,7 +90,7 @@ public class BalanceInputRevisionService {
         return  inputValue < 10000 * 24.25f;
     }
 
-    private boolean reviseDepositAmount(){
+    private boolean checkDepositAmount(){
         return inputValue > 0;
     }
 
