@@ -1,5 +1,6 @@
 plugins {
     id("java")
+
 }
 
 group = "org.mathiasus"
@@ -10,9 +11,15 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(platform("org.junit:junit-bom:5.10.0"));
+    testImplementation("org.junit.jupiter:junit-jupiter");
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher");
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation("com.google.code.gson:gson:2.13.2");
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation("javax.xml.bind:jaxb-api:2.3.1");
+
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0")
 }
 
 tasks.test {

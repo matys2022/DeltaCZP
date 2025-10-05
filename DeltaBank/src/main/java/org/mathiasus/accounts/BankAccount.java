@@ -2,7 +2,7 @@ package org.mathiasus.accounts;
 
 import org.mathiasus.persons.customers.Customer;
 
-public class BankAccount {
+public abstract class BankAccount {
 
     private final String uuid;
     private final String bankAccountNumber;
@@ -23,6 +23,11 @@ public class BankAccount {
         this.balance = balance;
         this.perPaymentLimit = perPaymentLimit;
         this.monthlyLimit = monthlyLimit;
+    }
+    public BankAccount() {
+        this.uuid = null;
+        this.bankAccountNumber = null;
+        this.customer = null;
     }
     public BankAccount(String uuid, String bankAccountNumber, Customer customer, double balance) {
 

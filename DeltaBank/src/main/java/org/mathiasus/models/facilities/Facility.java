@@ -9,6 +9,13 @@ public abstract class Facility {
     private final String facilityEmail;
     private final FaciltityType faciltityType;
 
+    public Facility(){
+        this.facilityIco = null;
+        this.facilityName = null;
+        this.facilityAddress = null;
+        this.facilityEmail = null;
+        this.faciltityType = null;
+    }
     public Facility(String facilityIco, String facilityName, String facilityAddress, String facilityEmail, FaciltityType faciltityType) {
         this.facilityIco = facilityIco;
         this.facilityName = facilityName;
@@ -31,5 +38,8 @@ public abstract class Facility {
 
     public String getFacilityName() {
         return facilityName;
+    }
+    public FaciltityType getFaciltityType() {
+        return faciltityType;
     }
 }

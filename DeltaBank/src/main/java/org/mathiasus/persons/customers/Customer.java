@@ -1,27 +1,20 @@
 package org.mathiasus.persons.customers;
 
-public class Customer {
+import org.mathiasus.persons.Person;
+
+public class Customer extends Person {
     private final String uuid;
-    private final String firstName;
-    private final String middleName;
-    private final String lastName;
+
+    public Customer(){
+        this.uuid = null;
+    }
 
     public Customer(String uuid, String firstName, String middleName, String lastName) {
+        super(firstName, middleName, lastName);
         this.uuid = uuid;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
+    }
+    public String getUuid() {
+        return uuid;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
 }

@@ -6,6 +6,9 @@ public class SaveAccount extends BankAccount {
 
     private final float interestRate;
 
+    public SaveAccount(){
+        this.interestRate = 0.0f;
+    }
     public SaveAccount(String uuid, String bankAccountNumber, Customer customer, double balance, float interestRate) {
         super(uuid, bankAccountNumber, customer, balance);
         this.interestRate = interestRate;

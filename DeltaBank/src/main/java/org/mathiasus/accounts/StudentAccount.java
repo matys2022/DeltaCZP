@@ -7,6 +7,9 @@ public class StudentAccount extends BankAccount {
 
     private final School school;
 
+    public StudentAccount(){
+        this.school = null;
+    }
     public StudentAccount(String uuid, String bankAccountNumber, Customer customer, double balance, School school) {
         super(uuid, bankAccountNumber, customer, balance);
         this.school = school;
