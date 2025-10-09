@@ -2,7 +2,7 @@ package org.mathiasus.accounts;
 
 import org.mathiasus.persons.customers.Customer;
 
-public class SaveAccount extends BankAccount {
+public class SaveAccount extends BankAccountWithPaymentCard {
 
     private final float interestRate;
 

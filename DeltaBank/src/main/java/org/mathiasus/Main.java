@@ -1,15 +1,17 @@
 package org.mathiasus;
 
-import org.mathiasus.accounts.RegularAccount;
-import org.mathiasus.accounts.BankAccount;
-import org.mathiasus.accounts.SaveAccount;
-import org.mathiasus.accounts.StudentAccount;
+import org.mathiasus.accounts.*;
+import org.mathiasus.cards.CreditCard;
+import org.mathiasus.cards.PaymentCard;
 import org.mathiasus.factories.BankAccountFactory;
+import org.mathiasus.factories.PaymentCardFactory;
 import org.mathiasus.models.facilities.education.School;
 import org.mathiasus.models.facilities.enums.FaciltityType;
 import org.mathiasus.persons.customers.Customer;
 import org.mathiasus.serialization.accounts.*;
 import org.mathiasus.services.balanceManagement.BalanceManagementService;
+import org.mathiasus.services.cardManagement.CardManagementService;
+
 import javax.naming.OperationNotSupportedException;
 
 
@@ -60,6 +62,21 @@ public class Main {
         BankAccountSerializationFactory factory = new BankAccountSerializationFactory();
         String json;
         String xml;
+
+        if(account instanceof BankAccountWithPaymentCard){
+            PaymentCardFactory paymentCardFactory = new PaymentCardFactory();
+            CardManagementService cardManagementService = new CardManagementService();
+
+            cardManagementService.addPaymentCard(paymentCardFactory.createDebitPaymentCard(new Customer("c-222", "John", "", "Middleman"), "02", "03", 0 ), ((BankAccountWithPaymentCard)account));
+
+            String cardNum = ((BankAccountWithPaymentCard) account).getPaymentCards().entrySet().iterator().next().getValue().getCardNumber();
+
+            System.out.println("Printing the card number of newly created payment card");
+            System.out.println(cardNum);
+
+            cardManagementService.removePaymentCard(cardNum, ((BankAccountWithPaymentCard)account));
+        }
+
 
         switch (bankAccountModified){
             case  RegularAccount BankAccount:
@@ -137,6 +154,8 @@ public class Main {
         System.out.println(json);
         System.out.println(xml);
     }
+
+
     public static void printAccount(BankAccount account){
         Customer customer = account.getCustomer();
         System.out.println(customer.getFirstName() + " " + customer.getLastName() + ": " +  account.getBalance());
