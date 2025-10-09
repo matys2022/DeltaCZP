@@ -66,14 +66,20 @@ public class Main {
 
                 System.out.println("Serialization of the account");
 
-                factory.createRegularAccountSerialization(account);
+                RegularAccountSerialization regularAccountSerializable = factory.createRegularAccountSerialization(BankAccount);
                 RegularAccountJsonSerializationService regularAccountJsonSerializationService = new RegularAccountJsonSerializationService();
                 RegularAccountXmlSerializationService regularAccountXmlSerializationService = new RegularAccountXmlSerializationService();
-                json = regularAccountJsonSerializationService.serialize(account);
-                xml = regularAccountXmlSerializationService.serialize(account);
+                json = regularAccountJsonSerializationService.serialize(regularAccountSerializable);
+                xml = regularAccountXmlSerializationService.serialize(regularAccountSerializable);
+
+
+
                 System.out.println("Deserialization of the account");
                 RegularAccount deserializedJson = (RegularAccount) regularAccountJsonSerializationService.deserialize(json);
                 RegularAccount deserializedXml = (RegularAccount) regularAccountXmlSerializationService.deserialize(xml);
+
+
+                // Writing the contents of deserialized objects into console
                 System.out.println(deserializedJson.getCustomer().getFirstName());
                 System.out.println(deserializedXml.getCustomer().getLastName());
 
@@ -83,29 +89,37 @@ public class Main {
 
                 System.out.println("Serialization of the account");
                 factory = new BankAccountSerializationFactory();
-                factory.createSaveAccountSerialization(account);
+                SaveAccountSerialization saveAccountSerializable = factory.createSaveAccountSerialization(BankAccount);
                 SaveAccountJsonSerializationService saveAccountJsonSerializationService = new SaveAccountJsonSerializationService();
                 SaveAccountXmlSerializationService saveAccountXmlSerializationService = new SaveAccountXmlSerializationService();
-                json = saveAccountJsonSerializationService.serialize(account);
-                xml = saveAccountXmlSerializationService.serialize(account);
+                json = saveAccountJsonSerializationService.serialize(saveAccountSerializable);
+                xml = saveAccountXmlSerializationService.serialize(saveAccountSerializable);
+
+
                 System.out.println("Deserialization of the account");
                 SaveAccount deserializedJsonSaveAccount = (SaveAccount) saveAccountJsonSerializationService.deserialize(json);
                 SaveAccount deserializedXmlSaveAccount = (SaveAccount) saveAccountXmlSerializationService.deserialize(xml);
+
+
+                // Writing the contents of deserialized objects into console
                 System.out.println(deserializedJsonSaveAccount.getCustomer().getFirstName());
                 System.out.println(deserializedXmlSaveAccount.getCustomer().getFirstName());
-
-
                 System.out.println(String.format("Next month increase will be approximately %f", deserializedJsonSaveAccount.getBalance() * deserializedJsonSaveAccount.getInterestRate()));
+
+
                 break;
             case  StudentAccount BankAccount:
 
                 System.out.println("Serialization of the account");
                 factory = new BankAccountSerializationFactory();
-                factory.createStudentAccountSerialization(account);
+                StudentAccountSerialization studentAccountSerializable = factory.createStudentAccountSerialization(BankAccount);
                 StudentAccountJsonSerializationService studentAccountJsonSerializationService = new StudentAccountJsonSerializationService();
                 StudentAccountXmlSerializationService studentAccountXmlSerializationService = new StudentAccountXmlSerializationService();
-                json = studentAccountJsonSerializationService.serialize(account);
-                xml =  studentAccountXmlSerializationService.serialize(account);
+                json = studentAccountJsonSerializationService.serialize(studentAccountSerializable);
+                xml =  studentAccountXmlSerializationService.serialize(studentAccountSerializable);
+
+
+
                 System.out.println("Deserialization of the account");
                 StudentAccount deserializedJsonStudent = (StudentAccount) studentAccountJsonSerializationService.deserialize(json);
                 StudentAccount deserializedXmlStudent = (StudentAccount) studentAccountXmlSerializationService.deserialize(xml);
@@ -113,9 +127,9 @@ public class Main {
                 System.out.println(deserializedXmlStudent.getCustomer().getFirstName());
 
 
-                Customer customer = deserializedJsonStudent.getCustomer();
-                School school = deserializedJsonStudent.getSchool();
-                System.out.println("Owner of this bank account named " + customer.getFirstName()+ " " + customer.getLastName() + " is a student of " + school.getFacilityName());
+                // Writing the contents of deserialized objects into console
+                System.out.println("Owner of this bank account named " + deserializedJsonStudent.getCustomer().getFirstName()+ " " + deserializedJsonStudent.getCustomer().getLastName() + " is a student of " + deserializedJsonStudent.getSchool().getFacilityName());
+
                 break;
             default:
                 throw new OperationNotSupportedException("Account type not implemented yet!");

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import org.mathiasus.persons.customers.Customer;
 import org.mathiasus.serialization.Serialization;
-import javax.xml.bind.JAXB;
-import java.io.StringWriter;
 
 public class CustomerXmlSerializationService implements Serialization {
     private XmlMapper xmlMappper;
