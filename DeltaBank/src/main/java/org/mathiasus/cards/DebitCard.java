@@ -10,8 +10,8 @@ public class DebitCard extends PaymentCard {
     public DebitCard() {
         this.outOfNetworkATMWithdrawalFee = 0;
     }
-    public DebitCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear, double fee) {
-        super(uuid, customer, cardNumber, cvv, expirationMonth, expirationYear);
+    public DebitCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear, double fee, String pinNumber) {
+        super(uuid, customer, cardNumber, cvv, expirationMonth, expirationYear, pinNumber);
         this.outOfNetworkATMWithdrawalFee = fee;
     }
 }

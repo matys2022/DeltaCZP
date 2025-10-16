@@ -21,8 +21,6 @@ public abstract class BankAccountWithPaymentCard extends BankAccount {
 
     public BankAccountWithPaymentCard(String uuid, String bankAccountNumber, Customer customer, double balance) {
         this(uuid, bankAccountNumber, customer, balance, -1.0f, -1.0f);
-        paymentCardMapToAccounts.put(bankAccountNumber, this);
-
     }
 
     public BankAccountWithPaymentCard() {
@@ -30,14 +28,15 @@ public abstract class BankAccountWithPaymentCard extends BankAccount {
     }
 
     public void addPaymentCard(PaymentCard paymentCard) {
-
         accountPaymentCardMap.put(paymentCard.getCardNumber(), paymentCard);
         paymentCardMapToCardNumber.put(paymentCard.getCardNumber(), paymentCard);
+        paymentCardMapToAccounts.put(paymentCard.getCardNumber(), this);
     }
     public void removePaymentCard(String cardNumber) {
 
         accountPaymentCardMap.remove(cardNumber);
         paymentCardMapToCardNumber.remove(cardNumber);
+        paymentCardMapToAccounts.put(cardNumber, this);
     }
     public Map<String, PaymentCard> getPaymentCards() {
         return accountPaymentCardMap;

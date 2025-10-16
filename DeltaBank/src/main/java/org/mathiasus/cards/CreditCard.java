@@ -10,8 +10,8 @@ public class CreditCard extends PaymentCard {
     private double interestRate;
     private Date minimumPaymentDue;
 
-    public CreditCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear, double lineOfCreditLimit, double interestRate, Date minimumPaymentDue){
-        super(uuid, customer, cardNumber, cvv, expirationMonth, expirationYear);
+    public CreditCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear, double lineOfCreditLimit, double interestRate, Date minimumPaymentDue, String pinNumber){
+        super(uuid, customer, cardNumber, cvv, expirationMonth, expirationYear, pinNumber);
         this.lineOfCreditLimit = lineOfCreditLimit;
         this.interestRate = interestRate;
         this.minimumPaymentDue = minimumPaymentDue;

@@ -11,16 +11,17 @@ public abstract class PaymentCard {
     private String cvv;
     private String expirationMonth;
     private String expirationYear;
-
+    private String pinNumber;
     public PaymentCard(){}
 
-    public PaymentCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear) {
+    public PaymentCard(String uuid, Customer customer, String cardNumber, String cvv, String expirationMonth, String expirationYear,  String pinNumber) {
         this.uuid = uuid;
         this.customer = customer;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
         this.expirationMonth = expirationMonth;
         this.expirationYear = expirationYear;
+        this.pinNumber = pinNumber;
     }
 
     public String getUuid() {

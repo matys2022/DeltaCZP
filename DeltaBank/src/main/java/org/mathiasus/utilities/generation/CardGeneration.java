@@ -20,4 +20,7 @@ public class CardGeneration {
         return new Random().nextInt(999)+"";
     }
 
+    public String generateCardPin(){
+        return String.format("%04d", new Random().nextInt(9999));
+    }
 }

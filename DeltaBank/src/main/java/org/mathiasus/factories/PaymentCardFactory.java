@@ -17,9 +17,9 @@ public class PaymentCardFactory {
     }
 
     public PaymentCard createCreditPaymentCard(Customer customer, String expirationMonth, String expirationYear,  double lineOfCreditLimit, double interestRate, Date minimumPaymentDue){
-        return new CreditCard(cardGeneration.generateUUID(), customer, cardGeneration.generateAccountNumber(), cardGeneration.generateCardCVV(), expirationMonth, expirationYear, lineOfCreditLimit, interestRate, minimumPaymentDue);
+        return new CreditCard(cardGeneration.generateUUID(), customer, cardGeneration.generateAccountNumber(), cardGeneration.generateCardCVV(), expirationMonth, expirationYear, lineOfCreditLimit, interestRate, minimumPaymentDue, cardGeneration.generateCardPin());
     }
     public PaymentCard createDebitPaymentCard(Customer customer, String expirationMonth, String expirationYear, double fee){
-        return new DebitCard(cardGeneration.generateUUID(), customer, cardGeneration.generateAccountNumber(), cardGeneration.generateCardCVV(), expirationMonth, expirationYear, fee);
+        return new DebitCard(cardGeneration.generateUUID(), customer, cardGeneration.generateAccountNumber(), cardGeneration.generateCardCVV(), expirationMonth, expirationYear, fee, cardGeneration.generateCardPin());
     }
 }
