@@ -11,6 +11,7 @@ import org.mathiasus.persons.customers.Customer;
 import org.mathiasus.serialization.accounts.*;
 import org.mathiasus.services.balanceManagement.BalanceManagementService;
 import org.mathiasus.services.cardManagement.CardManagementService;
+import org.mathiasus.services.cardManagement.CardPaymentService;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -46,17 +47,17 @@ public class Main {
 
         printAccount(account);
 
-        BalanceManagementService balanceManagementService = new BalanceManagementService(account);
+        BalanceManagementService balanceManagementService = new BalanceManagementService();
 
-        BankAccount bankAccountModified = balanceManagementService.getAccount();
 
-        balanceManagementService.deposit( 250);
 
-        printAccount(bankAccountModified);
+        balanceManagementService.deposit( account,250);
 
-        balanceManagementService.withdraw(250);
+        printAccount(account);
 
-        printAccount(bankAccountModified);
+        balanceManagementService.withdraw(account,250);
+
+        printAccount(account);
 
 
         BankAccountSerializationFactory factory = new BankAccountSerializationFactory();
@@ -67,18 +68,25 @@ public class Main {
             PaymentCardFactory paymentCardFactory = new PaymentCardFactory();
             CardManagementService cardManagementService = new CardManagementService();
 
-            cardManagementService.addPaymentCard(paymentCardFactory.createDebitPaymentCard(new Customer("c-222", "John", "", "Middleman"), "02", "03", 0 ), ((BankAccountWithPaymentCard)account));
+            PaymentCard card = paymentCardFactory.createDebitPaymentCard(new Customer("c-222", "John", "", "Middleman"), "02", "03", 0 );
+
+            cardManagementService.addPaymentCard(card, ((BankAccountWithPaymentCard)account));
 
             String cardNum = ((BankAccountWithPaymentCard) account).getPaymentCards().entrySet().iterator().next().getValue().getCardNumber();
 
             System.out.println("Printing the card number of newly created payment card");
             System.out.println(cardNum);
 
+            CardPaymentService cardPaymentService = new CardPaymentService();
+
+            cardPaymentService.deposit(card, 30);
+            cardPaymentService.withdraw(card, 100);
+
             cardManagementService.removePaymentCard(cardNum, ((BankAccountWithPaymentCard)account));
         }
 
 
-        switch (bankAccountModified){
+        switch (account){
             case  RegularAccount BankAccount:
 
                 System.out.println("Serialization of the account");

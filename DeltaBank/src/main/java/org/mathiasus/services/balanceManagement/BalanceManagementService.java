@@ -5,24 +5,18 @@ import org.mathiasus.accounts.BankAccount;
 public class BalanceManagementService {
 
 
-    private final BankAccount account;
+//    private final BankAccount account;
     private final BalanceInputRevisionService inputRevisionService;
 
-    public BalanceManagementService(BankAccount account) {
-        this.account = account;
-        this.inputRevisionService = new BalanceInputRevisionService(account);
+    public BalanceManagementService() {
+//        this.account = account;
+        this.inputRevisionService = new BalanceInputRevisionService();
     }
 
-    public void withdraw(int amount) {
-        withdraw(account, amount);
-    }
-    public void deposit(int amount) {
-        deposit(account, amount);
-    }
 
     public void deposit(BankAccount account, double depositedBalance) {
 
-        if(inputRevisionService.ValidateDeposit(depositedBalance)) {
+        if(inputRevisionService.ValidateDeposit(account, depositedBalance)) {
 
             account.setMonthlyDepositedBalance(account.getMonthlyDepositedBalance() + depositedBalance);
 
@@ -35,7 +29,7 @@ public class BalanceManagementService {
 
     public void withdraw(BankAccount account, double withdrawnBalance) {
 
-        if(inputRevisionService.ValidateWithdrawal(withdrawnBalance)) {
+        if(inputRevisionService.ValidateWithdrawal(account, withdrawnBalance)) {
 
             account.setMonthlySpentBalance(account.getMonthlySpentBalance() + withdrawnBalance);
 
@@ -46,7 +40,7 @@ public class BalanceManagementService {
         }
     }
 
-    public BankAccount getAccount() {
-        return account;
-    }
+//    public BankAccount getAccount() {
+//        return account;
+//    }
 }

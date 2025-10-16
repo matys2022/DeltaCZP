@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class PaymentCardFactory {
 
-    private CardGeneration cardGeneration;
+    private final CardGeneration cardGeneration;
 
     public PaymentCardFactory(){
         this.cardGeneration = new CardGeneration();

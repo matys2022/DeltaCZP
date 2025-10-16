@@ -4,14 +4,12 @@ import org.mathiasus.accounts.BankAccount;
 
 public class BalanceInputRevisionService {
 
-    private final BankAccount bankAccount;
     private double inputValue;
 
-    public BalanceInputRevisionService(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
+    public BalanceInputRevisionService() {
     }
 
-    public boolean ValidateDeposit(double inputValue) {
+    public boolean ValidateDeposit(BankAccount bankAccount, double inputValue) {
 
         this.inputValue = inputValue;
 
@@ -21,7 +19,7 @@ public class BalanceInputRevisionService {
         if(!checkAMLA()){
             throw new RuntimeException("Deposit amount exceeded the per-deposit limit");
         }
-        if(!checkMonthlyDepositAmount()){
+        if(!checkMonthlyDepositAmount(bankAccount)){
             throw new RuntimeException("Deposit amount exceeded the monthly deposit limit");
         }
 
@@ -29,20 +27,20 @@ public class BalanceInputRevisionService {
         return true;
     }
 
-    public boolean ValidateWithdrawal(double inputValue){
+    public boolean ValidateWithdrawal(BankAccount bankAccount, double inputValue){
 
         this.inputValue = inputValue;
 
         if(!checkWithdrawalAmount()){
             throw new RuntimeException("Withdrawal value must be positive");
         }
-        if(!checkAvailableBalance()){
+        if(!checkAvailableBalance(bankAccount)){
             throw new RuntimeException("Not sufficient balance");
         }
-        if(!checkMonthLimit()){
+        if(!checkMonthLimit(bankAccount)){
             throw new RuntimeException("Processed payment reached monthly limit ");
         }
-        if(!checkPaymentLimit()){
+        if(!checkPaymentLimit(bankAccount)){
             throw new RuntimeException("Processed payment limit reached");
         }
         // Passed
@@ -53,18 +51,18 @@ public class BalanceInputRevisionService {
         return inputValue > 0;
     }
 
-    private boolean checkAvailableBalance(){
+    private boolean checkAvailableBalance(BankAccount bankAccount){
         return bankAccount.getBalance() - inputValue >= 0;
     }
 
-    private boolean checkMonthLimit(){
+    private boolean checkMonthLimit(BankAccount bankAccount){
         // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getMonthlyLimit()>=0)
             return bankAccount.getMonthlyLimit() - inputValue >= 0;
         else return true;
     }
 
-    private boolean checkPaymentLimit(){
+    private boolean checkPaymentLimit(BankAccount bankAccount){
         // If limit is negative, it behaves the same way, as if no limit ever existed
         if(bankAccount.getPerPaymentLimit()>=0)
             return bankAccount.getPerPaymentLimit() - inputValue >= 0;
@@ -78,7 +76,7 @@ public class BalanceInputRevisionService {
 
 
 
-    private boolean checkMonthlyDepositAmount(){
+    private boolean checkMonthlyDepositAmount(BankAccount bankAccount){
         return checkAMLA(inputValue + bankAccount.getMonthlyDepositedBalance());
     }
 
