@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentCardStorage {
+
     public static Map<String, BankAccountWithPaymentCard> paymentCardMapToAccounts = new HashMap<>();
     public static Map<String, PaymentCard> paymentCardMapToCardNumber = new HashMap<>();
 
