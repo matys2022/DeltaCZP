@@ -1,5 +1,6 @@
 package org.mathiasus.services.balanceManagement;
 
+import com.google.inject.Inject;
 import org.mathiasus.accounts.BankAccount;
 import org.mathiasus.factories.BankLogFactory;
 import org.mathiasus.loggers.ActivityLogType;
@@ -7,19 +8,16 @@ import org.mathiasus.loggers.LogType;
 import org.mathiasus.services.logging.BankLogService;
 
 public class BalanceManagementService {
-
-
-//    private final BankAccount account;
-    private final BalanceInputRevisionService inputRevisionService;
-    private BalanceManagementService balanaceService;
+    @Inject
+    private BalanceInputRevisionService inputRevisionService;
+    @Inject
+    private BalanceManagementService balanceManagementService;
+    @Inject
     private BankLogService logService;
+    @Inject
     private BankLogFactory bankLogFactory;
 
     public BalanceManagementService() {
-//        this.account = account;
-        this.inputRevisionService = new BalanceInputRevisionService();
-        this.logService = new BankLogService();
-        this.bankLogFactory = new BankLogFactory();
     }
 
 
@@ -53,7 +51,4 @@ public class BalanceManagementService {
         }
     }
 
-//    public BankAccount getAccount() {
-//        return account;
-//    }
 }

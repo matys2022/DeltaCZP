@@ -1,10 +1,10 @@
 package org.mathiasus.services.cardManagement;
 
+import com.google.inject.Inject;
 import org.mathiasus.accounts.BankAccountWithPaymentCard;
 import org.mathiasus.cards.PaymentCard;
 import org.mathiasus.factories.BankLogFactory;
 import org.mathiasus.loggers.ActivityLogType;
-import org.mathiasus.loggers.BalanceLog;
 import org.mathiasus.loggers.LogType;
 import org.mathiasus.services.balanceManagement.BalanceManagementService;
 import org.mathiasus.services.logging.BankLogService;
@@ -12,15 +12,19 @@ import org.mathiasus.services.logging.BankLogService;
 import static org.mathiasus.storage.PaymentCardStorage.paymentCardMapToAccounts;
 
 public class CardPaymentService {
-    private BalanceManagementService balanaceService;
-    private BankLogService logService;
-    BankLogFactory bankLogFactory;
 
-    public CardPaymentService(){
-        this.balanaceService = new BalanceManagementService();
-        this.logService = new BankLogService();
-        this.bankLogFactory = new BankLogFactory();
-    }
+
+    @Inject
+    private BalanceManagementService balanceManagementService;
+
+    @Inject
+    private BankLogService logService;
+
+    @Inject
+    private BankLogFactory bankLogFactory;
+
+
+    public CardPaymentService(){}
 
     public void deposit(PaymentCard paymentCard, int amount){
         String cardNumber = paymentCard.getCardNumber();
@@ -28,7 +32,7 @@ public class CardPaymentService {
         if(paymentCardMapToAccounts.containsKey(cardNumber)){
             BankAccountWithPaymentCard account = paymentCardMapToAccounts.get(cardNumber);
 
-            balanaceService.deposit(account, amount);
+            balanceManagementService.deposit(account, amount);
         }else{
             throw new IllegalArgumentException("Invalid card number, card doesn't have any account assigned");
         }
@@ -40,7 +44,7 @@ public class CardPaymentService {
 
         if(paymentCardMapToAccounts.containsKey(cardNumber)){
             BankAccountWithPaymentCard account = paymentCardMapToAccounts.get(cardNumber);
-            balanaceService.withdraw(account, amount);
+            balanceManagementService.withdraw(account, amount);
             logService.createLog(this.bankLogFactory.createBalanceLog(LogType.INFO, ActivityLogType.CARD, "You have paid with a payment card -> " + amount, account.getBankAccountNumber()));
         }else{
             throw new IllegalArgumentException("Invalid card number, card doesn't have any account assigned");

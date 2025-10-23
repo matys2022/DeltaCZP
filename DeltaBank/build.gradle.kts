@@ -19,7 +19,10 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation("javax.xml.bind:jaxb-api:2.3.1");
 
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.0");
+
+    // https://mvnrepository.com/artifact/com.google.inject/guice
+    implementation("com.google.inject:guice:7.0.0")
 }
 
 tasks.test {

@@ -1,6 +1,6 @@
 package org.mathiasus.loggers;
 
-public abstract class BankLog {
+public abstract class BankLog implements Logger {
     private String id;
     private LogType type;
     private String message;

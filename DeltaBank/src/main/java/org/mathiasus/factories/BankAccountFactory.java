@@ -1,5 +1,6 @@
 package org.mathiasus.factories;
 
+import com.google.inject.Inject;
 import org.mathiasus.accounts.BankAccount;
 import org.mathiasus.accounts.RegularAccount;
 import org.mathiasus.accounts.SaveAccount;
@@ -10,7 +11,8 @@ import org.mathiasus.utilities.generation.AccountCreation;
 
 public class BankAccountFactory {
 
-    private static AccountCreation accountHelper = new AccountCreation();
+    @Inject
+    private AccountCreation accountHelper;
 
 
     public BankAccountFactory() {}
