@@ -12,8 +12,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class InterestCronService {
 
@@ -32,7 +30,6 @@ public class InterestCronService {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public void run() {
-        // The Runnable task, which contains the logic from your run() method
         Runnable interestTask = () -> {
             HashMap<String, SaveAccount> affectedAccounts = interestRunnerFacade.processAllInterests();
             affectedAccounts.forEach((interest,saveAccount)->
@@ -53,13 +50,12 @@ public class InterestCronService {
         System.out.println("Interest task scheduled.");
     }
 
-    // You should shut down the scheduler when your application is closing gracefully
+
     public void shutdownScheduler() {
         scheduler.shutdown();
         try {
-            // Wait for existing tasks to terminate
             if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow(); // Cancel currently executing tasks
+                scheduler.shutdownNow();
                 if (!scheduler.awaitTermination(60, TimeUnit.SECONDS))
                     System.err.println("Scheduler did not terminate");
             }
@@ -68,9 +64,6 @@ public class InterestCronService {
             Thread.currentThread().interrupt();
         }
     }
-
-    // Example usage (in a main method or application startup)
-
 }
 
 
