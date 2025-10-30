@@ -42,7 +42,7 @@ public class InterestCronService {
                 }
         );
     }
-    TimeUnit.SECONDS.sleep(5);
+
     public void run() {
         Runnable interestTask = () -> {
             task();
