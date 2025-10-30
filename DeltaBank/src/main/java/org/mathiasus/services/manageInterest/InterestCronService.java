@@ -44,30 +44,20 @@ public class InterestCronService {
     }
 
     public void run() {
-        Runnable interestTask = () -> {
+
+        while (true) {
             task();
-            System.out.println("Interest task executed at: " + System.currentTimeMillis());
-        };
-
-        scheduler.scheduleAtFixedRate(interestTask, 10, 10, TimeUnit.SECONDS);
-
-        System.out.println("Interest task scheduled.");
-    }
-
-
-    public void shutdownScheduler() {
-        scheduler.shutdown();
-        try {
-            if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow();
-                if (!scheduler.awaitTermination(60, TimeUnit.SECONDS))
-                    System.err.println("Scheduler did not terminate");
+            try{
+                TimeUnit.SECONDS.sleep(10);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
             }
-        } catch (InterruptedException ie) {
-            scheduler.shutdownNow();
-            Thread.currentThread().interrupt();
+            System.out.println("Interest task scheduled.");
         }
+
+
     }
+
 }
 
 
