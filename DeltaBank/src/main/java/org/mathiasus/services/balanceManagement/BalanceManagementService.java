@@ -29,7 +29,12 @@ public class BalanceManagementService {
 
             account.setBalance(account.getBalance() + depositedBalance);
 
-            logService.createLog(bankLogFactory.createBalanceLog(LogType.INFO, ActivityLogType.DEPOSIT, "You have deposited onto your account -> " + depositedBalance, account.getBankAccountNumber()));
+            logService.createLog(bankLogFactory.createBalanceLog(
+                    LogType.INFO,
+                    ActivityLogType.DEPOSIT,
+                    "You have deposited onto your account -> " + depositedBalance,
+                    account.getBankAccountNumber()
+            ));
 
         }else {
             throw new RuntimeException("Unable to withdraw");

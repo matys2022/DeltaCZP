@@ -5,4 +5,5 @@ public enum ActivityLogType {
     DEPOSIT,
     WITHDRAW,
     CARD,
+    INTEREST,
 }

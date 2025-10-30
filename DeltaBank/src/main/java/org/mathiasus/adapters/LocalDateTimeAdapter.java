@@ -1,19 +1,18 @@
 package org.mathiasus.adapters;
 
-//package com.mkyong.json.gson.java8date;
-
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     @Override
-    public JsonElement serialize(LocalDate localDate,
+    public JsonElement serialize(LocalDateTime localDate,
                                  Type type,
                                  JsonSerializationContext jsonSerializationContext) {
 
@@ -22,11 +21,11 @@ public class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserial
     }
 
     @Override
-    public LocalDate deserialize(JsonElement jsonElement,
+    public LocalDateTime deserialize(JsonElement jsonElement,
                                  Type type,
                                  JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 
-        return LocalDate.parse(jsonElement.getAsJsonPrimitive().getAsString(), formatter);
+        return LocalDateTime.parse(jsonElement.getAsJsonPrimitive().getAsString(), formatter);
     }
 
 }

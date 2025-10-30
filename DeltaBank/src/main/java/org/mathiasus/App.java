@@ -12,6 +12,7 @@ import org.mathiasus.serialization.accounts.*;
 import org.mathiasus.services.balanceManagement.BalanceManagementService;
 import org.mathiasus.services.cardManagement.CardManagementService;
 import org.mathiasus.services.cardManagement.CardPaymentService;
+import org.mathiasus.services.manageInterest.InterestCronService;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -34,6 +35,9 @@ public class App {
     @Inject
     CardPaymentService cardPaymentService;
 
+    @Inject
+    InterestCronService interestCronService;
+
     public App(){
 
     }
@@ -44,7 +48,7 @@ public class App {
 
 
         BankAccount account0 = bankAccountFactory.createRegularAccount(customer, 123);
-        BankAccount account1 = bankAccountFactory.createSaveAccount(customer, 123, 0.1f);
+        BankAccount account1 = bankAccountFactory.createSaveAccount(customer, 123, -0.1f);
         BankAccount account2 = bankAccountFactory.createStudentAccount(customer, 123, school);
 
 
@@ -57,6 +61,9 @@ public class App {
         }catch (Exception e) {
             System.err.println(e.getMessage());
         }
+
+        interestCronService.run();
+
     }
 
     private void testAccount(BankAccount account) throws OperationNotSupportedException {
@@ -137,6 +144,7 @@ public class App {
                 json = saveAccountJsonSerializationService.serialize(saveAccountSerializable);
                 xml = saveAccountXmlSerializationService.serialize(saveAccountSerializable);
 
+                System.out.println(json);
 
                 System.out.println("Deserialization of the account");
                 SaveAccount deserializedJsonSaveAccount = (SaveAccount) saveAccountJsonSerializationService.deserialize(json);
