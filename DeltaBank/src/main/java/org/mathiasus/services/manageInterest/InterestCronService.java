@@ -29,19 +29,23 @@ public class InterestCronService {
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
+    private void task(){
+        HashMap<String, SaveAccount> affectedAccounts = interestRunnerFacade.processAllInterests();
+        affectedAccounts.forEach((interest,saveAccount)->
+                {
+                    bankLogService.createLog(bankLogFactory.createBalanceLog(
+                            LogType.INFO,
+                            ActivityLogType.INTEREST,
+                            "Interest update with amount of" + interest,
+                            saveAccount.getBankAccountNumber()
+                    ));
+                }
+        );
+    }
+    TimeUnit.SECONDS.sleep(5);
     public void run() {
         Runnable interestTask = () -> {
-            HashMap<String, SaveAccount> affectedAccounts = interestRunnerFacade.processAllInterests();
-            affectedAccounts.forEach((interest,saveAccount)->
-                    {
-                        bankLogService.createLog(bankLogFactory.createBalanceLog(
-                                LogType.INFO,
-                                ActivityLogType.INTEREST,
-                                "Interest update with amount of" + interest,
-                                saveAccount.getBankAccountNumber()
-                        ));
-                    }
-            );
+            task();
             System.out.println("Interest task executed at: " + System.currentTimeMillis()); // Placeholder
         };
 
