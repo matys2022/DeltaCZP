@@ -55,7 +55,7 @@ public class InterestCronService {
     }
 
 
-    public void shutdownScheduler() {
+    public void shutdown() {
         scheduler.shutdown();
         try {
             if (!scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
