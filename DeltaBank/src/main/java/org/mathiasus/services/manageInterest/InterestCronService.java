@@ -46,7 +46,7 @@ public class InterestCronService {
     public void run() {
         Runnable interestTask = () -> {
             task();
-            System.out.println("Interest task executed at: " + System.currentTimeMillis()); // Placeholder
+            System.out.println("Interest task executed at: " + System.currentTimeMillis());
         };
 
         scheduler.scheduleAtFixedRate(interestTask, 10, 10, TimeUnit.SECONDS);

@@ -2,6 +2,9 @@ package org.mathiasus.accounts;
 
 import org.mathiasus.persons.customers.Customer;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public abstract class BankAccount {
 
     private final String uuid;
@@ -15,7 +18,7 @@ public abstract class BankAccount {
     protected double monthlySpentBalance;
     protected double monthlyDepositedBalance;
 
-
+    ArrayList<BankAccountTransaction> transactions = new ArrayList<>();
 
     public BankAccount(String uuid, String bankAccountNumber, Customer customer, double balance,  double perPaymentLimit, double monthlyLimit) {
 
