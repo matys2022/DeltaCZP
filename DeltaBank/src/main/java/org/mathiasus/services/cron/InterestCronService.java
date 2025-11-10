@@ -1,4 +1,4 @@
-package org.mathiasus.services.manageInterest;
+package org.mathiasus.services.cron;
 
 import com.google.inject.Inject;
 import org.mathiasus.accounts.SaveAccount;
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import java.util.HashMap;
 
-public class InterestCronService {
+public class InterestCronService implements ICron {
 
     @Inject
     InterestRunnerFacade interestRunnerFacade;
@@ -24,7 +24,7 @@ public class InterestCronService {
     @Inject
     BankLogFactory bankLogFactory;
 
-    public InterestCronService() {
+    public InterestCronService(){
     }
 
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();

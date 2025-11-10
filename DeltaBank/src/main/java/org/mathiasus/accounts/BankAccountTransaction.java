@@ -15,4 +15,28 @@ public class BankAccountTransaction {
         this.activityType = activityType;
         this.amount = amount;
     }
+
+    public BankAccountTransaction(LocalDateTime dateTime, BankAccountActivityType activityType, Double amount) {
+
+    }
+
+    public boolean isExported() {
+        return exported;
+    }
+
+    public void setExported(boolean exported) {
+        this.exported = exported;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public BankAccountActivityType getActivityType() {
+        return activityType;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
 }

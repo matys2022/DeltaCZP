@@ -17,7 +17,9 @@ public class BankAccountFactory {
     private AccountCreation accountHelper;
 
 
-    public BankAccountFactory() {}
+    public BankAccountFactory() {
+
+    }
 
     public  BankAccount createRegularAccount(Customer customer, double balance) {
         BankAccount bankAccount = new RegularAccount(accountHelper.CreateBankAccountUUID(), accountHelper.CreateAccountNumber(), customer, balance);

@@ -1,5 +1,6 @@
 package org.mathiasus.accounts;
 
+import com.google.inject.Inject;
 import org.mathiasus.persons.customers.Customer;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public abstract class BankAccount {
     protected double monthlyLimit;
     protected double monthlySpentBalance;
     protected double monthlyDepositedBalance;
+
 
     ArrayList<BankAccountTransaction> transactions = new ArrayList<>();
 
@@ -81,5 +83,17 @@ public abstract class BankAccount {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public void addTransaction(BankAccountTransaction bankAccountTransaction) {
+        transactions.add(bankAccountTransaction);
+    }
+
+    public boolean hasChanged(){
+        return transactions.stream().anyMatch(x -> !x.exported);
+    }
+
+    public ArrayList<BankAccountTransaction> getTransactions() {
+        return transactions;
     }
 }

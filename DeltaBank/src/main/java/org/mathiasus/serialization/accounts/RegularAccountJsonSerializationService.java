@@ -1,15 +1,21 @@
 package org.mathiasus.serialization.accounts;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.mathiasus.accounts.RegularAccount;
+import org.mathiasus.adapters.LocalDateTimeAdapter;
 import org.mathiasus.serialization.Serialization;
+
+import java.time.LocalDateTime;
 
 public class RegularAccountJsonSerializationService implements Serialization {
 
     private final Gson gson;
 
     public RegularAccountJsonSerializationService() {
-        this.gson = new Gson();
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
     }
 
     @Override

@@ -12,44 +12,52 @@ import org.mathiasus.serialization.accounts.*;
 import org.mathiasus.services.balanceManagement.BalanceManagementService;
 import org.mathiasus.services.cardManagement.CardManagementService;
 import org.mathiasus.services.cardManagement.CardPaymentService;
-import org.mathiasus.services.manageInterest.InterestCronService;
+import org.mathiasus.services.cron.InterestCronService;
+import org.mathiasus.services.cron.TransactionsReportCronService;
 
 import javax.naming.OperationNotSupportedException;
 
 public class App {
-    @Inject
-    BankAccountFactory bankAccountFactory;
 
     @Inject
-    BalanceManagementService balanceManagementService;
+    private BankAccountFactory bankAccountFactory;
 
     @Inject
-    BankAccountSerializationFactory bankAccountSerializationFactory;
+    private BalanceManagementService balanceManagementService;
 
     @Inject
-    CardManagementService cardManagementService;
+    private BankAccountSerializationFactory bankAccountSerializationFactory;
 
     @Inject
-    PaymentCardFactory paymentCardFactory;
+    private CardManagementService cardManagementService;
 
     @Inject
-    CardPaymentService cardPaymentService;
+    private PaymentCardFactory paymentCardFactory;
 
     @Inject
-    InterestCronService interestCronService;
+    private CardPaymentService cardPaymentService;
+
+    @Inject
+    private InterestCronService interestCronService;
+
+    @Inject
+    private TransactionsReportCronService transactionsReportCronService;
+
 
     public App(){
 
     }
+
     public void run()
     {
         Customer customer = new Customer("c-222", "John", "", "Middleman");
         School school = new School("6332340273", "Gymnazium jana capka", "Praha 8", "janacapka@example.com", FaciltityType.School);
 
+        System.out.println(bankAccountFactory == null);
 
-        BankAccount account0 = bankAccountFactory.createRegularAccount(customer, 123);
-        BankAccount account1 = bankAccountFactory.createSaveAccount(customer, 123, -0.1f);
-        BankAccount account2 = bankAccountFactory.createStudentAccount(customer, 123, school);
+        BankAccount account0 = this.bankAccountFactory.createRegularAccount(customer, 123);
+        BankAccount account1 = this.bankAccountFactory.createSaveAccount(customer, 123, -0.1f);
+        BankAccount account2 = this.bankAccountFactory.createStudentAccount(customer, 123, school);
 
 
         try{
@@ -63,6 +71,7 @@ public class App {
         }
 
         interestCronService.run();
+        transactionsReportCronService.run();
 
     }
 
